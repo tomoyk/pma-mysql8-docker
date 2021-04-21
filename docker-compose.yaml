@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  db:
+    container_name: composed-mysql
+    image: mysql/mysql-server:8.0
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./initdb.d:/docker-entrypoint-initdb.d
+    restart: always
+    environment:
+      MYSQL_DATABASE: db_study
+      TZ: "Asia/Tokyo"
+    command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  pma:
+    container_name: composed-pma
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "127.0.0.1:8080:80"
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_USER: demo
+      PMA_PASSWORD: demo
+
+volumes:
+  db_data:
