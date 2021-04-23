@@ -9,7 +9,6 @@ services:
       - ./initdb.d:/docker-entrypoint-initdb.d
     restart: always
     environment:
-      MYSQL_DATABASE: db_study
       TZ: "Asia/Tokyo"
     command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
